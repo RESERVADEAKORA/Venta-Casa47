@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casa en Venta: Una Residencia Exclusiva</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .header {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('2.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin: 0;
+            font-weight: 700;
+        }
+        .header p {
+            font-size: 1.1em;
+            font-weight: 300;
+        }
+        .section {
+            padding: 60px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .section:last-child {
+            border-bottom: none;
+        }
+        h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 50px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        .intro-text {
+            text-align: center;
+            font-size: 1.1em;
+            max-width: 800px;
+            margin: 0 auto 50px auto;
+            color: #555;
+        }
+        
+        /* Icons Section */
+        .icons-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            text-align: center;
+            padding: 40px 20px;
+            background-color: white;
+        }
+        .icon-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 120px;
+        }
+        .icon-item img {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 10px;
+        }
+        .icon-item .icon-label {
+            font-size: 1em;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        .icon-item .icon-value {
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        /* Carousel Section */
+        .carousel-section {
+            padding: 40px 0;
+            background-color: #fff;
+        }
+        .carousel {
+            position: relative;
+            max-width: 900px;
+            margin: auto;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel-item {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+        .carousel-item img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            display: block;
+            cursor: pointer;
+        }
+        .carousel-control-prev, .carousel-control-next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            color: white;
+            font-size: 30px;
+            transition: 0.3s ease;
+            border-radius: 50%;
+            user-select: none;
+            background-color: rgba(0,0,0,0.5);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .carousel-control-prev { left: 15px; }
+        .carousel-control-next { right: 15px; }
+        .carousel-control-prev:hover, .carousel-control-next:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        /* Lightbox Modal */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+        }
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        #lightbox-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .close-lightbox, .prev-lightbox, .next-lightbox {
+            position: absolute;
+            color: white;
+            font-size: 2.5em;
+            cursor: pointer;
+            user-select: none;
+            transition: 0.3s ease;
+        }
+        .close-lightbox:hover, .prev-lightbox:hover, .next-lightbox:hover {
+            color: #bbb;
+        }
+        .close-lightbox {
+            top: 15px;
+            right: 25px;
+            font-size: 3em;
+        }
+        .prev-lightbox, .next-lightbox {
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0,0,0,0.4);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .prev-lightbox { left: 15px; }
+        .next-lightbox { right: 15px; }
+
+        /* Feature Cards Section */
+        .feature-cards-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .feature-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        .feature-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .feature-card-content {
+            padding: 25px;
+        }
+        .feature-card-content h3 {
+            font-size: 1.5em;
+            color: #34495e;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        .feature-card-content p {
+            font-size: 1em;
+            line-height: 1.6;
+        }
+
+        /* Amenities Section */
+        .amenities-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+        .amenity-item {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .amenity-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        .amenity-item i {
+            font-size: 2.5em;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        .amenity-item p {
+            margin: 0;
+            font-weight: 600;
+            color: #34495e;
+        }
+
+        /* Layout Section */
+        .layout-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .layout-column {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .layout-column h3 {
+            font-size: 1.6em;
+            color: #34495e;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        .layout-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .layout-column li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .layout-column li::before {
+            content: '✓';
+            color: #3498db;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        /* Price Section */
+        .price-section {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .price {
+            font-size: 3.5em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin: 10px 0;
+        }
+        .price-subtitle {
+            font-size: 1.2em;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        /* Location Grid Section */
+        .location-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+        .location-item {
+            padding: 20px;
+        }
+        .location-item i {
+            font-size: 2.5em;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        .location-item h3 {
+            font-size: 1.2em;
+            color: #34495e;
+            margin: 10px 0 5px 0;
+        }
+        .location-item p {
+            margin: 0;
+            color: #555;
+        }
+
+        /* CTA Footer */
+        .cta {
+            text-align: center;
+            background-color: #2c3e50;
+            color: white;
+            padding: 60px 20px;
+        }
+        .cta h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        .cta p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: #2ecc71;
+            color: white;
+            padding: 15px 25px;
+            font-size: 1.1em;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            margin: 5px;
+        }
+        .cta-button:hover {
+            background-color: #27ae60;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2em; }
+            .header p { font-size: 1em; }
+            h2 { font-size: 2em; }
+            .icons-section { gap: 30px; }
+            .icon-item { min-width: 100px; }
+            .carousel-item img { height: 400px; }
+            .cta-button { width: 80%; box-sizing: border-box; }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 { font-size: 1.8em; }
+            .price { font-size: 2.5em; }
+            .carousel-item img { height: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <h1>Exclusiva Casa en Venta</h1>
+            <p>Confort, diseño y una ubicación privilegiada</p>
+        </div>
+    </header>
+
+    <section class="section carousel-section">
+        <div class="container">
+            <h2>Colección de Fotografías</h2>
+            <div class="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item" data-index="0"><img src="21.jpeg" alt="Foto de la casa 21"></div>
+                    <div class="carousel-item" data-index="1"><img src="2.jpeg" alt="Foto de la casa 2"></div>
+                    <div class="carousel-item" data-index="2"><img src="1.jpeg" alt="Foto de la casa 1"></div>
+                    <div class="carousel-item" data-index="3"><img src="26.jpeg" alt="Foto de la casa 26"></div>
+                    <div class="carousel-item" data-index="4"><img src="5.jpeg" alt="Foto de la casa 5"></div>
+                    <div class="carousel-item" data-index="5"><img src="8.jpeg" alt="Foto de la casa 8"></div>
+                    <div class="carousel-item" data-index="6"><img src="3.jpeg" alt="Foto de la casa 3"></div>
+                    <div class="carousel-item" data-index="7"><img src="4.jpeg" alt="Foto de la casa 4"></div>
+                    <div class="carousel-item" data-index="8"><img src="23.jpeg" alt="Foto de la casa 23"></div>
+                    <div class="carousel-item" data-index="9"><img src="27.jpeg" alt="Foto de la casa 27"></div>
+                    <div class="carousel-item" data-index="10"><img src="6.jpeg" alt="Foto de la casa 6"></div>
+                    <div class="carousel-item" data-index="11"><img src="13.jpeg" alt="Foto de la casa 13"></div>
+                    <div class="carousel-item" data-index="12"><img src="7.jpeg" alt="Foto de la casa 7"></div>
+                    <div class="carousel-item" data-index="13"><img src="11.jpeg" alt="Foto de la casa 11"></div>
+                    <div class="carousel-item" data-index="14"><img src="9.jpeg" alt="Foto de la casa 9"></div>
+                    <div class="carousel-item" data-index="15"><img src="10.jpeg" alt="Foto de la casa 10"></div>
+                    <div class="carousel-item" data-index="16"><img src="24.jpeg" alt="Foto de la casa 24"></div>
+                    <div class="carousel-item" data-index="17"><img src="20.jpeg" alt="Foto de la casa 20"></div>
+                    <div class="carousel-item" data-index="18"><img src="16.jpeg" alt="Foto de la casa 16"></div>
+                    <div class="carousel-item" data-index="19"><img src="17.jpeg" alt="Foto de la casa 17"></div>
+                    <div class="carousel-item" data-index="20"><img src="18.jpeg" alt="Foto de la casa 18"></div>
+                    <div class="carousel-item" data-index="21"><img src="14.jpeg" alt="Foto de la casa 14"></div>
+                    <div class="carousel-item" data-index="22"><img src="12.jpeg" alt="Foto de la casa 12"></div>
+                    <div class="carousel-item" data-index="23"><img src="19.jpeg" alt="Foto de la casa 19"></div>
+                    <div class="carousel-item" data-index="24"><img src="25.jpeg" alt="Foto de la casa 25"></div>
+                    <div class="carousel-item" data-index="25"><img src="22.jpeg" alt="Foto de la casa 22"></div>
+                </div>
+                <button class="carousel-control-prev" onclick="prevSlide()">&#10094;</button>
+                <button class="carousel-control-next" onclick="nextSlide()">&#10095;</button>
+            </div>
+        </div>
+    </section>
+
+    <div id="lightbox-modal" class="lightbox-modal">
+        <span class="close-lightbox">&times;</span>
+        <span class="prev-lightbox">&#10094;</span>
+        <span class="next-lightbox">&#10095;</span>
+        <div class="lightbox-content">
+            <img id="lightbox-image">
+        </div>
+    </div>
+
+    <section class="section icons-section">
+        <div class="icon-item">
+            <img src="area.png" alt="Área Construida">
+            <div class="icon-label">Área Construida</div>
+            <div class="icon-value">104 m²</div>
+        </div>
+        <div class="icon-item">
+            <img src="bed.png" alt="Habitaciones">
+            <div class="icon-label">Habitaciones</div>
+            <div class="icon-value">3</div>
+        </div>
+        <div class="icon-item">
+            <img src="bathroom.png" alt="Baños">
+            <div class="icon-label">Baños</div>
+            <div class="icon-value">3</div>
+        </div>
+        <div class="icon-item">
+            <img src="workspace.png" alt="Estudios">
+            <div class="icon-label">Estudios o Salas de TV</div>
+            <div class="icon-value">2</div>
+        </div>
+        <div class="icon-item">
+            <img src="park.png" alt="Parqueaderos">
+            <div class="icon-label">Parqueaderos</div>
+            <div class="icon-value">1</div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2>Una Distribución Pensada para la Vida Moderna</h2>
+            <div class="layout-section">
+                <div class="layout-column">
+                    <h3>Primer Nivel: Corazón del Hogar</h3>
+                    <ul>
+                        <li>Luminosa sala y comedor con chimenea a gas</li>
+                        <li>Cocina moderna</li>
+                        <li>Baño social</li>
+                        <li>Zona de ropas</li>
+                        <li>Patio con cubierta corrediza</li>
+                        <li>Bodega bajo escalera</li>
+                    </ul>
+                </div>
+                <div class="layout-column">
+                    <h3>Segundo Nivel: Confort Familiar</h3>
+                    <ul>
+                        <li>Dos habitaciones con clóset</li>
+                        <li>Estudio o sala de TV independiente con puerta</li>
+                        <li>Baño completo con división en vidrio templado y mueble de lavamanos</li>
+                    </ul>
+                </div>
+                <div class="layout-column">
+                    <h3>Tercer Nivel: Suite Principal</h3>
+                    <ul>
+                        <li>Habitación principal espaciosa con balcón</li>
+                        <li>Baño completo con división en vidrio templado y mueble de lavamanos</li>
+                        <li>Walk-in closet</li>
+                        <li>Mueble de linos</li>
+                        <li>Estudio o sala de TV independiente con puerta</li>
+                    </ul>
+                </div>
+            </div>
+             <div class="feature-item" style="margin-top: 30px; text-align: center; background: none; box-shadow: none;">
+                <h3>Parqueadero Propio</h3>
+                <p>La comodidad de un parqueadero propio, debidamente registrado en escritura, garantizando su tranquilidad.</p>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <h2 style="margin-bottom: 30px;">Un Hogar Diseñado para el Bienestar</h2>
+                <p class="intro-text">
+                    Esta no es una propiedad más en el mercado; es una declaración de estilo de vida, un refugio diseñado para quienes buscan la excelencia. Cada detalle ha sido cuidadosamente concebido para ofrecer una experiencia de vida inigualable.
+                </p>
+                
+                <div class="feature-cards-section">
+                    <div class="feature-card">
+                        <img src="1.jpeg" alt="Chimenea de la casa">
+                        <div class="feature-card-content">
+                            <h3>Ambiente Acogedor</h3>
+                            <p>La chimenea a gas, completamente operativa, es el corazón cálido del hogar. Ideal para transformar las noches frías en momentos memorables.</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <img src="5.jpeg" alt="Patio de la casa">
+                        <div class="feature-card-content">
+                            <h3>Espacio Exterior Versátil</h3>
+                            <p>El patio, con cubierta corrediza, es un espacio ideal para reuniones o momentos de relajación, sin importar el clima.</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <img src="4.jpeg" alt="Acabados de la casa">
+                        <div class="feature-card-content">
+                            <h3>Acabados de Alta Calidad</h3>
+                            <p>Pisos, tapetes y divisiones de baño en vidrio templado en estado impecable. Solo tiene que instalarse y empezar a vivir.</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <img src="14.jpeg" alt="Fachada de la casa">
+                        <div class="feature-card-content">
+                            <h3>Privacidad y Serenidad</h3>
+                            <p>Doble muro lateral para aislamiento térmico y acústico. La habitación principal cuenta con aislamiento premium para un descanso profundo.</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <img src="20.jpeg" alt="Documentos de la propiedad">
+                        <div class="feature-card-content">
+                            <h3>Inversión Sólida</h3>
+                            <p>Todas las ampliaciones son 100% legales, entregadas por la constructora y registradas en escritura pública. Su inversión está asegurada.</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <img src="7.jpeg" alt="Ventanas con protección UV">
+                        <div class="feature-card-content">
+                            <h3>Protección Inteligente</h3>
+                            <p>Las películas de protección UV en los vidrios de ambos estudios resguardan sus muebles y optimizan el confort interior.</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <img src="9.jpeg" alt="Cortinas y blackouts">
+                        <div class="feature-card-content">
+                            <h3>Lista para Habitar</h3>
+                            <p>La propiedad se entrega con blackouts, cortinas y perfiles en todas las ventanas, garantizando su privacidad desde el primer día.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background-color: #f0f0f0;">
+            <div class="container">
+                <h2>Comodidades Exclusivas del Conjunto Residencial</h2>
+                <p class="intro-text">Su nuevo hogar se encuentra en un conjunto residencial que eleva su calidad de vida con una gama de amenidades pensadas para su bienestar y entretenimiento:</p>
+                <div class="amenities-section">
+                    <div class="amenity-item">
+                        <i class="fas fa-building"></i>
+                        <p>Club House</p>
+                    </div>
+                    <div class="amenity-item">
+                        <i class="fas fa-dumbbell"></i>
+                        <p>Gimnasio</p>
+                    </div>
+                    <div class="amenity-item">
+                        <i class="fas fa-swimmer"></i>
+                        <p>Piscina para Adultos</p>
+                    </div>
+                    <div class="amenity-item">
+                        <i class="fas fa-child"></i>
+                        <p>Piscina para Niños</p>
+                    </div>
+                    <div class="amenity-item">
+                        <i class="fas fa-hot-tub"></i>
+                        <p>Sauna</p>
+                    </div>
+                    <div class="amenity-item">
+                        <i class="fas fa-users"></i>
+                        <p>Salón Social</p>
+                    </div>
+                    <div class="amenity-item">
+                        <i class="fas fa-utensils"></i>
+                        <p>Terraza con Zona BBQ</p>
+                    </div>
+                    <div class="amenity-item">
+                        <i class="fas fa-child"></i>
+                        <p>Parque para Niños</p>
+                    </div>
+                    <div class="amenity-item">
+                        <i class="fas fa-leaf"></i>
+                        <p>Zonas Verdes</p>
+                    </div>
+                    <div class="amenity-item">
+                        <i class="fas fa-walking"></i>
+                        <p>Senderos Peatonales</p>
+                    </div>
+                    <div class="amenity-item">
+                        <i class="fas fa-dog"></i>
+                        <p>Zonas Pet</p>
+                    </div>
+                    <div class="amenity-item">
+                        <i class="fas fa-car"></i>
+                        <p>Parqueaderos para Visitantes</p>
+                    </div>
+                    <div class="amenity-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <p>Vigilancia 24 Horas</p>
+                    </div>
+                </div>
+                <p class="intro-text" style="margin-top: 40px;">Un entorno diseñado para vivir cada día con plenitud y sin preocupaciones.</p>
+            </div>
+        </section>
+
+        <section class="section location-section" style="background-color: #fff;">
+            <div class="container">
+                <h2>Ubicación Estratégica: Su Tiempo es Valioso</h2>
+                <p class="intro-text">Esta propiedad no solo le ofrece un hogar de primer nivel, sino también una ubicación privilegiada que optimiza su tiempo y potencia su inversión. Disfrute de la conveniencia de tener todo a su alcance, en una de las zonas con mayor proyección y desarrollo.</p>
+                <div class="location-grid">
+                    <div class="location-item">
+                        <i class="fas fa-tree"></i>
+                        <h3>10 min</h3>
+                        <p>Parque Jaime Duque y Outlet Arauco</p>
+                    </div>
+                    <div class="location-item">
+                        <i class="fas fa-store"></i>
+                        <h3>15 min</h3>
+                        <p>Cabaña Alpina</p>
+                    </div>
+                    <div class="location-item">
+                        <i class="fas fa-clinic-medical"></i>
+                        <h3>20 min</h3>
+                        <p>Clínica Marly y C.C. Fontanar</p>
+                    </div>
+                    <div class="location-item">
+                        <i class="fas fa-road"></i>
+                        <h3>20 min</h3>
+                        <p>en doble calzada Bogota</p>
+                    </div>
+                </div>
+                <p class="intro-text" style="margin-top: 40px;">La proximidad a estos puntos de interés clave no solo enriquece su calidad de vida, sino que también asegura una excelente valorización de su propiedad a futuro.</p>
+            </div>
+        </section>
+
+        <section class="section price-section" style="background-color: #f0f0f0;">
+            <div class="container">
+                <h2>Una Inversión Inteligente</h2>
+                <p class="intro-text">Esta propiedad representa una oportunidad única para adquirir un activo de alta valorización en una zona de gran desarrollo. </p>
+                <div class="price">$440.000.000</div>
+                <div class="price-subtitle">COP (Negociables)</div>
+                <p>Contáctenos para más información y para agendar una visita.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="cta">
+        <div class="container">
+            <h2>¿Interesado en esta propiedad?</h2>
+            <p>No dejes pasar esta oportunidad. Contáctanos hoy mismo.</p>
+            <a href="https://wa.me/573173008401" class="cta-button">Contactar por WhatsApp: 317 300 8401</a>
+            <a href="https://wa.me/573174360971" class="cta-button">Contactar por WhatsApp: 317 436 0971</a>
+        </div>
+    </footer>
+
+    <script>
+        // Carousel Logic
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.carousel-item');
+        const totalSlides = slides.length;
+        const carouselInner = document.querySelector('.carousel-inner');
+
+        function showSlide(index) {
+            if (index >= totalSlides) slideIndex = 0;
+            else if (index < 0) slideIndex = totalSlides - 1;
+            else slideIndex = index;
+            carouselInner.style.transform = 'translateX(' + (-slideIndex * 100) + '%)';
+        }
+
+        function nextSlide() {
+            showSlide(slideIndex + 1);
+        }
+
+        function prevSlide() {
+            showSlide(slideIndex - 1);
+        }
+
+        // Lightbox Logic
+        const lightboxModal = document.getElementById('lightbox-modal');
+        const lightboxImage = document.getElementById('lightbox-image');
+        const carouselImages = document.querySelectorAll('.carousel-item img');
+        let currentLightboxIndex = 0;
+
+        function openLightbox(index) {
+            currentLightboxIndex = index;
+            const imageSrc = carouselImages[currentLightboxIndex].src;
+            lightboxImage.src = imageSrc;
+            lightboxModal.style.display = 'flex';
+        }
+
+        function closeLightbox() {
+            lightboxModal.style.display = 'none';
+        }
+
+        function showNextLightboxImage() {
+            currentLightboxIndex = (currentLightboxIndex + 1) % carouselImages.length;
+            openLightbox(currentLightboxIndex);
+        }
+
+        function showPrevLightboxImage() {
+            currentLightboxIndex = (currentLightboxIndex - 1 + carouselImages.length) % carouselImages.length;
+            openLightbox(currentLightboxIndex);
+        }
+
+        carouselImages.forEach((img, index) => {
+            img.addEventListener('click', () => openLightbox(index));
+        });
+
+        document.querySelector('.close-lightbox').addEventListener('click', closeLightbox);
+        document.querySelector('.next-lightbox').addEventListener('click', showNextLightboxImage);
+        document.querySelector('.prev-lightbox').addEventListener('click', showPrevLightboxImage);
+
+        document.addEventListener('keydown', (e) => {
+            if (lightboxModal.style.display === 'flex') {
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowRight') showNextLightboxImage();
+                if (e.key === 'ArrowLeft') showPrevLightboxImage();
+            }
+        });
+
+        // Initialize Carousel
+        showSlide(slideIndex);
+    </script>
+
+</body>
+</html>
